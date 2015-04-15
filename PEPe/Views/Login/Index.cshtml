@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@Scripts.Render("~/bundles/login")
+<h2>Index</h2>
+
+@using (Html.BeginForm("Logar", "Login", FormMethod.Post))
+{
+    
+    <label>Login:</label>
+    <input type="text" id="login" name="login" />
+    @Html.ValidationMessage("Login")
+
+    <label>Senha:</label>
+    <input type="password" id="senha" name="senha" />
+    @Html.ValidationMessage("Password")
+       
+    
+
+    <input type="submit" value="ok" />
+    
+    
+    if(ViewBag.Erro != null)
+    {
+       @ViewBag.Erro
+    }
+        
+
+}
+

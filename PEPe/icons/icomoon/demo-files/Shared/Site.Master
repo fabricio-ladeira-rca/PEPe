@@ -1,0 +1,142 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="randon_consorcios_volare_v1.Helpers" %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-BR">
+	<head>
+		<title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="pt-BR" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="expires" content = "0" />
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="revisit-after" content="7 days" />
+		
+		<meta name="description" content="O consórcio que oferece as melhores condições para aquisição de miniônibus Volare, uma Unidade de Negócios pertencente à Marcopolo." />
+		<meta name="keywords" content="Consórcio Volare, Miniônibus Volare, Miniônibus" />
+		
+		<meta name="rating" content="General" />
+		<meta name="author" content="W3haus - O mundo é inquieto? A gente é mais." />
+
+		<meta name="robots" content="All" />
+		<link rel="shortcut icon" href="<%= Html.RootUrl() %>Content/imgs/others/favicon.ico" type="image/x-icon" />
+		<script type="text/javascript">
+		    var rootUrl = "<%= Html.RootUrl() %>";
+		</script>
+		<link href="<%= Html.RootUrl() %>Content/css/screen.css?c=4" rel="stylesheet" type="text/css" />
+		<link href="<%= Html.RootUrl() %>Content/css/jquery.lightbox-0.5.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/swfobject.js"></script>
+		<script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/jquery.js"></script>
+		<script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/jquery.mask.js"></script>
+		<script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/functions.js"></script>
+		<script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/jquery.lightbox-0.5.min.js"></script>
+		<!--[if lte IE 6]>
+			<link href="<%= Html.RootUrl() %>Content/css/screen_ie6.css" rel="stylesheet" type="text/css" />
+		<![endif]-->
+		
+	</head>
+	<body id="volare" class="<%= Html.Encode(ViewData["bodyClass"]) %>">
+		<!-- wrapper -->
+		<div id="wrapper">
+			<span class="hidden">
+				<a href="#content">Ir para conteúdo</a> | 
+				<a href="#nav">Ir para barra de navegação</a>
+			</span>
+			
+			<!-- header -->
+			<div id="header">
+				<h1><%= Html.ActionLink("Volare", "index", "index", null, new { Class = "hide-text" })%></h1>
+				<div id="area-cliente">
+					<iframe frameborder="0" scrolling="no" src="<%= ConfigurationManager.AppSettings["host.wwws.randonconsorcios.com.br"] %>/login/iframeLogin/2?returnTo=<%= Html.RootUrl() %>" width="454" height="33">Seu navegador não suporta frames</iframe>
+					<div class="esqueci-senha">
+					    <%= Html.RouteLink("Esqueci minha senha", "Default", new { controller = "services", action = "password"})%>	
+					</div>
+				</div>
+			</div>
+			<!-- end:header -->
+			
+			<!-- navigation -->
+			<div id="nav">
+				<ul class="clearfix">
+					<li <% if (Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") == "institutional"){ %> class="active" <% } %>><%= Html.LinkTo("Institucional", "Default", "index", "institutional", null, new { Class = "hide-text institucional",})%></li>
+					<li <% if (Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") == "faq"){ %> class="active" <% } %>><%= Html.LinkTo("Indique o site", "Default", "index", "faq", null, new { Class = "hide-text perguntas-frequentes",})%></li>
+					<li <% if (Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") == "contact"){ %> class="active" <% } %>><%= Html.LinkTo("Contato", "Default", "index", "contact", null, new { Class = "hide-text contato",})%></li>
+					<li <% if (Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") == "sendToAFriend"){ %> class="active" <% } %>><%= Html.LinkTo("Indique o site", "Default", "index", "sendToAFriend", null, new { Class = "hide-text indique",})%></li>
+					<li><%= Html.LinkTo("Página Inicial","Default", "index", "index", null, new {Class="pag-inicial hide-text"})%></li>
+					<li><%= Html.LinkTo("Mapa do Site","Default", "index", "sitemap", null, new { Class = "mapa hide-text" })%></li>
+				</ul>
+			</div>
+			<!-- end:navigation -->
+			
+			<!-- content -->
+			<div id="content">
+				<!-- navigation -->
+				<div id="nav-local">
+					<ul>
+					    <li><%= Html.LinkTo("Serviços", "Default", "index", "services", null, new { Class = "servicos hide-text" }) %></li>
+					    <li><%= Html.LinkTo("Simulador de Consórcios", "Default", "index", "simulator", null, new { Class = "simulador hide-text" }) %></li>
+						<li><%= Html.LinkTo("Assembléias", "Default", "index", "assemblies", null, new { Class = "assembleias hide-text" })%></li>
+						<li><%= Html.LinkTo("Notícias", "Default", "index", "news", null, new { Class = "noticias hide-text" })%></li>
+						<li><%= Html.LinkTo("Enquetes", "Default", "index", "poll", null, new { Class = "enquetes hide-text" })%></li>
+						<li><%= Html.LinkTo("Links Recomendados", "Default", "index", "links", null, new { Class = "links hide-text" })%></li>
+						<li><%= Html.LinkTo("Sobre a  Web TV", "Default", "index", "webtv", null, new { Class = "web-tv hide-text" })%></li>
+						<li><a href="http://www.volare.com.br/website/volare_pt/content/marcopolo/representantes/index.php" class="hide-text rede" title="Rede de Vendas" rel="external">Rede de Vendas</a></li>
+					</ul>
+					<a href="https://e.randonconsorcios.com.br" id="extranet" rel="external">Acesse a extranet</a>
+					<span class="info">Acesso restrito para revendas.</span>
+				</div>
+				<!-- end:navigation -->
+				
+				<!-- content -->
+				<div id="cont" class="clearfix">
+				    <% if (Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") != "index"){ %>
+				        <div id="font-size">
+			                <a class="decrease" href="javascript:void(0)">A-</a>
+			                <a class="increase" href="javascript:void(0)">A+</a>
+		               </div>
+		           <% } %>
+					<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+				</div>
+				<!-- end:content -->
+				
+				<a href="#nav" class="hidden">Voltar para a barra de navegação</a>
+			</div>
+			<!-- end:content -->
+		</div>
+		<!-- end:wrapper -->
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="center">
+				<p class="text-center">
+				    Filiada à Associação Brasileira de Administradoras de Consórcios - ABAC  |  <%= Html.LinkTo("Política de Privacidade", "Default", "index", "privacyNotice", null, null) %><br />                    Fiscalizada pelo Banco Central do Brasil sob nº 030004190   -   Telefone BACEN 0800 979 2345
+				</p>
+				<div class="hide-text relacionamento">
+					Central de Relacionamento 0800 644 2724
+				</div>
+				<div class="assinatura">
+					<p>Copyright © 1996-2008 Deere &amp; Company. All Rights Reserved.</p>
+					<a href="http://www.w3haus.com.br/" id="w3haus">W3Haus</a>
+					<script type="text/javascript">
+						// <![CDATA[
+						var flashvars = {color:"989A9A", animation:"false"};
+						var params = {wmode:"transparent"};
+						swfobject.embedSWF("http://www.w3haus.com.br/swf/w3haus.swf", "w3haus", "50", "14", "8.0.0","swf/expressInstall.swf", flashvars, params);
+						swfobject.createCSS("#w3haus","outline:none");
+						// ]]>
+					</script>
+				</div>
+			</div>
+		</div>
+		<!-- end:footer -->
+		<script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-10481848-3");
+                pageTracker._trackPageview();
+            } catch (err) { }
+        </script>
+	</body>
+</html>

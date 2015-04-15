@@ -1,0 +1,85 @@
+﻿@model  List<Agendamento.DataAccessModel.Agenda>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@Styles.Render("~/time-line.css")
+@Scripts.Render("~/TimeLine")
+
+<script>
+    $(function () {
+        $().timelinr({
+            arrowKeys: 'true'
+        })
+    });
+</script>
+
+
+<div class="menubar">
+    <div class="sidebar-toggler visible-xs">
+        <i class="ion-navicon"></i>
+    </div>
+
+    <div class="page-title">
+        AGENDA
+    </div>
+
+    <div class="period-select hidden-xs">
+        <form class="input-daterange">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar-o"></i>
+                </span>
+                <input name="start" type="text" class="form-control datepicker" placeholder="02/27/2014" />
+            </div>
+
+            <p class="pull-left">to</p>
+
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar-o"></i>
+                </span>
+                <input name="end" type="text" class="form-control datepicker" placeholder="02/27/2014" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="content-wrapper">
+
+
+    <div id="timeline">
+        <ul id="dates">
+            @{
+                foreach (var item in Model)
+                {
+                    <li><a href="#@item.Id">@item.DataHora</a></li>
+                }
+            }
+
+
+        </ul>
+        <ul id="issues">
+            @{
+                foreach (var item in Model)
+                {
+                    
+                    <li id="@item.Id">
+                        <img src="/images/jQueryTimelinr_0954/calendar.jpg" width="256" height="256" />
+                        <h1>@item.DataHora</h1>
+                        <p>Profissional: @item.Consulta.Profissional.Nome</p>
+                        <p>@item.Consulta.Descricao</p>
+                    </li>
+                }
+            }
+
+        </ul>
+        <div id="grad_left"></div>
+        <div id="grad_right"></div>
+        <a href="#" id="next">+</a>
+        <a href="#" id="prev">-</a>
+    </div>
+
+</div>

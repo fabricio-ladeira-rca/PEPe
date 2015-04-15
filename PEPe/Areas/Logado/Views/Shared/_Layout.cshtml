@@ -1,0 +1,184 @@
+﻿@using PEPe.DataAccessModel;
+@if (Session["user"] == null)
+{
+    Response.Redirect("~/");
+}
+else
+{
+    if (ViewBag.NomeUsuario == null)
+    {
+        ViewBag.UsuarioLogado = ((UsuarioLogadoModel)Session["user"]);
+    }
+
+    ViewBag.ClassDashBoard = string.Empty;
+    ViewBag.ClassNovoAgendamento = string.Empty;
+    ViewBag.ClassPainel = string.Empty;
+    ViewBag.ClassCadastroVeiculos = string.Empty;
+    ViewBag.ClassMotoristas = string.Empty;
+
+    switch (HttpContext.Current.Request.Url.AbsolutePath.ToString())
+    {
+        case "/Logado/Home":
+        case "/Logado/Home/Index":
+            ViewBag.ClassDashBoard = " class=active ";
+            break;
+        case "/Logado/Agendamento/AgendamentoIncluir":
+            ViewBag.ClassNovoAgendamento = " class=active ";
+            break;
+        case "/Logado/Agendamento/Painel":
+            ViewBag.ClassPainel = " class=active ";
+            break;
+        case "/Logado/Veiculos/ConsultaVeiculos":
+            ViewBag.ClassCadastroVeiculos = " class=active ";
+            break;
+        case "/Logado/Motorista/ConsultaMotoristas":
+            ViewBag.ClassMotorista = " class=active ";
+            break;
+        default:
+            break;
+    }
+
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Wolf - Bootstrap Admin Theme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- stylesheets -->
+    @Styles.Render("~/css/thema")
+
+    <!-- javascript -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body id="dashboard">
+    <div id="wrapper">
+        <div id="sidebar-default" class="main-sidebar">
+            <div class="current-user">
+                <a href="index.html" class="name">
+                    <img class="avatar" src="../../../images/avatars/1.jpg" />
+                    <span>
+                        @ViewBag.NomeUsuario
+                        <i class="fa fa-chevron-down"></i>
+                    </span>
+                </a>
+                <ul class="menu">
+                    <li>
+                        <a href="account-profile.html">Account settings</a>
+                    </li>
+                    <li>
+                        <a href="account-billing.html">Billing</a>
+                    </li>
+                    <li>
+                        <a href="account-notifications.html">Notifications</a>
+                    </li>
+                    <li>
+                        <a href="account-support.html">Help / Support</a>
+                    </li>
+                    <li>
+                        <a href="signup.html">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-section">
+                <h3>General</h3>
+                <ul>
+                    <li>
+                        <a href="~/Logado/Home/Index" @ViewBag.ClassDashBoard>
+                            <i class="ion-android-earth"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    @*<li>
+                        <a href="~/Logado/Agendamento/AgendamentoIncluir" @ViewBag.ClassNovoAgendamento>
+                            <i class="ion-android-earth"></i>
+                            <span>Novo Agendamento</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="~/Logado/Painel/Painel" @ViewBag.ClassPainel>
+                            <i class="ion-android-earth"></i>
+                            <span>Painel Agendamento</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="~/Logado/Veiculos/ConsultaVeiculos" @ViewBag.ClassCadastroVeiculos>
+                            <i class="ion-android-earth"></i>
+                            <span>Veículos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Logado/Motorista/ConsultaMotoristas" @ViewBag.ClassMotorista>
+                            <i class="ion-android-earth"></i>
+                            <span>Motoristas</span>
+                        </a>
+                    </li>*@
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <h3>Admin</h3>
+                <ul>
+                    <li>
+                    <li>
+                        <a href="index.html" class="active">
+                            <i class="ion-android-earth"></i>
+                            <span>Meus Dados</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="bottom-menu hidden-sm">
+                <ul>
+                    <li><a href="#"><i class="ion-help"></i></a></li>
+                    <li>
+                        <a href="#">
+                            <i class="ion-archive"></i>
+                            <span class="flag"></span>
+                        </a>
+                        <ul class="menu">
+                            <li><a href="#">5 unread messages</a></li>
+                            <li><a href="#">12 tasks completed</a></li>
+                            <!-- <li><a href="#">3 features added</a></li> -->
+                        </ul>
+                    </li>
+                    <li><a href="signup.html"><i class="ion-log-out"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="content">
+            @RenderBody()
+        </div>
+
+
+
+        @*<script type="text/javascript">
+            $(function () {
+                $('#datatable-example').dataTable({
+                    "sPaginationType": "full_numbers",
+                    "processing": true,
+                    "iDisplayLength": 20,
+                    "aLengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
+                });
+            });
+
+
+
+
+        </script>*@
+    </div>
+</body>
+</html>

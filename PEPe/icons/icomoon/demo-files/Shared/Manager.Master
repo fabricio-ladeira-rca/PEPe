@@ -1,0 +1,113 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="randon_consorcios_volare_v1.Helpers" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-BR">
+    <head>
+        <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Language" content="pt-br" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content = "0" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <meta name="revisit-after" content="7 days" />
+
+        <meta name="DC.title" content="Título da página" />
+        <meta name="rating" content="General" />
+        <meta name="author" content="W3haus - O mundo é inquieto? A gente é mais." />
+
+        <meta name="robots" content="noindex, nofollow, noarchive" />
+        <link rel="shortcut icon" href="<%= Html.RootUrl() %>Content/imgs/others/favicon.ico" type="image/x-icon" />
+        
+        <script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/jquery.js"></script>
+        <script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/manager/manager.js"></script>
+        <script type="text/javascript" src="<%= Html.RootUrl() %>Content/js/swfobject.js"></script>
+
+		<link rel="stylesheet" href="<%= Html.RootUrl() %>Content/css/jquery-ui.smoothness.css" type="text/css"/>
+        <link rel="stylesheet" href="<%= Html.RootUrl() %>Content/css/manager/manager.css" type="text/css" media="Screen, Projection" />
+
+        <!--[if lte IE 6]>
+            <link rel="stylesheet" href="<%= Html.RootUrl() %>Content/css/manager/manager_ie6.css" type="text/css" media="Screen" />
+        <![endif]-->
+        
+        <!-- configurar rootUrl -->
+        <script type='text/javascript'>
+            var rootUrl = "/";
+        </script>
+    </head>
+    <body id='<% if(Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("controller") == "manager" && Html.ViewContext.Controller.ControllerContext.RouteData.GetRequiredString("action") == "login") {%>login<% }else{ %>internal<%} %>'>
+        <!-- wrap -->
+        <div id="wrap">
+            <a href="#content" class="invisible">Ir para conteúdo</a>
+            <span class="invisible"> | </span>
+            <a href="#nav" class="invisible">Ir para barra de navegação</a>
+
+            <!-- header -->
+            <div id="header">
+				<% if(!Html.IsAction("login")) { %>
+                <ul id="nav">
+					<li><%= Html.ListLink("Notícias", "news")%></li>
+					<li><%= Html.ListLink("Enquete", "poll")%></li>
+					<li><%= Html.ListLink("FAQ", "faq")%></li>
+					<li><%= Html.ListLink("Destaques", "highlight")%></li>
+					<li><%= Html.ListLink("Assembléias", "assembly")%></li>
+				</ul>
+				<div class="header-actions">
+					<ul>                    
+						<li><%= Html.RouteLink("Logout", "ManagerLogout", null) %></li>
+						<li><%= Html.RouteLink("Ir para o site »", "Root", null)%></li>
+					</ul>
+				</div>
+				<% } %>
+				<hr class="hide" />
+			</div>
+            <!-- end:header -->
+
+            <!-- content -->
+            <div id="content">
+				<% if (!Html.IsAction("login")) { %>
+                <div class="breadcrumb tools">
+                    <ul>
+                        <li><%= Html.ActionLink("Home", "index", "manager") %></li>
+                    </ul>                  
+                </div>
+				<% } %>
+                <div class="data">
+					<% if (ViewContext.TempData["notice"] != null) { %>
+						<div class="notice-message"><%= ViewContext.TempData["notice"] %></div>
+                    <% } %>
+                    <% if (ViewContext.TempData["warning"] != null) { %>
+						<div class="warning-message"><%= ViewContext.TempData["warning"] %></div>
+                    <% } %>
+                    <% if (ViewContext.TempData["error"] != null) { %>
+						<div class="error-message"><%= ViewContext.TempData["error"]%></div>
+                    <% } %>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                <a href="#nav" class="invisible">Voltar para a barra de navegação</a>
+                <hr class="hide" />
+            </div>
+            <!-- end:content -->
+            
+            <!-- footer -->
+            <div id="footer">
+                <div class="vcard">
+                    <span class="fn">
+                        W3haus - O mundo é inquieto?<br />
+                        A gente é mais.
+                    </span>
+                </div>
+                <a href="http://www.w3haus.com.br/" id="w3haus">W3Haus</a>
+                <script type="text/javascript">
+					// <![CDATA[
+                    var flashvars = {color:"d1d3d4", animation:"false"};
+                    var params = {wmode:"transparent"};
+                    swfobject.embedSWF("http://www.w3haus.com.br/swf/w3haus.swf", "w3haus", "50", "14", "8.0.0", "/Content/swf/expressInstall.swf", flashvars, params);
+                    swfobject.createCSS("#w3haus","outline:none");
+                    // ]]>
+                </script>
+            </div>
+            <!-- end:footer -->
+        </div>
+        <!-- end:wrap -->
+    </body>
+</html>

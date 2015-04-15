@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PEPeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="PEPeModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PEPeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PEPeEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Exame" EntityType="PEPeModel.Exame" />
+          <EntitySet Name="Consulta" EntityType="PEPeModel.Consulta" />
+          <EntitySet Name="Medicamento" EntityType="PEPeModel.Medicamento" />
+          <EntitySet Name="Usuario" EntityType="PEPeModel.Usuario" />
+          <EntitySet Name="Profissional" EntityType="PEPeModel.Profissional" />
+          <EntitySet Name="Agenda" EntityType="PEPeModel.Agenda" />
+          <AssociationSet Name="UsuarioAgenda" Association="PEPeModel.UsuarioAgenda">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="ExameAgenda" Association="PEPeModel.ExameAgenda">
+            <End Role="Exame" EntitySet="Exame" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="ConsultaAgenda" Association="PEPeModel.ConsultaAgenda">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="ProfissionalConsulta" Association="PEPeModel.ProfissionalConsulta">
+            <End Role="Profissional" EntitySet="Profissional" />
+            <End Role="Consulta" EntitySet="Consulta" />
+          </AssociationSet>
+          <EntitySet Name="ConsultaMedicamento" EntityType="PEPeModel.ConsultaMedicamento" />
+          <AssociationSet Name="MedicamentoConsultaMedicamento" Association="PEPeModel.MedicamentoConsultaMedicamento">
+            <End Role="Medicamento" EntitySet="Medicamento" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+          <AssociationSet Name="ConsultaConsultaMedicamento" Association="PEPeModel.ConsultaConsultaMedicamento">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Exame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="PEPeModel.ExameAgenda" FromRole="Exame" ToRole="Agenda" />
+        </EntityType>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="PEPeModel.ConsultaAgenda" FromRole="Consulta" ToRole="Agenda" />
+          <NavigationProperty Name="Profissional" Relationship="PEPeModel.ProfissionalConsulta" FromRole="Consulta" ToRole="Profissional" />
+          <NavigationProperty Name="ConsultaMedicamento" Relationship="PEPeModel.ConsultaConsultaMedicamento" FromRole="Consulta" ToRole="ConsultaMedicamento" />
+        </EntityType>
+        <EntityType Name="Medicamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" />
+          <NavigationProperty Name="ConsultaMedicamento" Relationship="PEPeModel.MedicamentoConsultaMedicamento" FromRole="Medicamento" ToRole="ConsultaMedicamento" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="PEPeModel.UsuarioAgenda" FromRole="Usuario" ToRole="Agenda" />
+        </EntityType>
+        <EntityType Name="Profissional">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ProfissionalConsulta" FromRole="Profissional" ToRole="Consulta" />
+        </EntityType>
+        <EntityType Name="Agenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Usuario" Relationship="PEPeModel.UsuarioAgenda" FromRole="Agenda" ToRole="Usuario" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Exame" Relationship="PEPeModel.ExameAgenda" FromRole="Agenda" ToRole="Exame" />
+          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ConsultaAgenda" FromRole="Agenda" ToRole="Consulta" />
+        </EntityType>
+        <Association Name="UsuarioAgenda">
+          <End Type="PEPeModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        </Association>
+        <Association Name="ExameAgenda">
+          <End Type="PEPeModel.Exame" Role="Exame" Multiplicity="1" />
+          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        </Association>
+        <Association Name="ConsultaAgenda">
+          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="1" />
+          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        </Association>
+        <Association Name="ProfissionalConsulta">
+          <End Type="PEPeModel.Profissional" Role="Profissional" Multiplicity="1" />
+          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ConsultaMedicamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Medicamento" Relationship="PEPeModel.MedicamentoConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Medicamento" />
+          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ConsultaConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Consulta" />
+        </EntityType>
+        <Association Name="MedicamentoConsultaMedicamento">
+          <End Type="PEPeModel.Medicamento" Role="Medicamento" Multiplicity="1" />
+          <End Type="PEPeModel.ConsultaMedicamento" Role="ConsultaMedicamento" Multiplicity="*" />
+        </Association>
+        <Association Name="ConsultaConsultaMedicamento">
+          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="1" />
+          <End Type="PEPeModel.ConsultaMedicamento" Role="ConsultaMedicamento" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PEPeModelStoreContainer" CdmEntityContainer="PEPeEntities" />
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
