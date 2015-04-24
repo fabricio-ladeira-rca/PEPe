@@ -1,4 +1,4 @@
-﻿@model  List<Agendamento.DataAccessModel.Agenda>
+﻿@model  List<PEPe.DataAccessModel.Agenda>
 @{
     ViewBag.Title = "Index";
 }
@@ -55,7 +55,7 @@
             @{
                 foreach (var item in Model)
                 {
-                    <li><a href="#@item.Id">@item.DataHora</a></li>
+                    <li><a href="#@item.Id">@string.Format("{0:dd/MM/yyyy HH:mm}",item.DataHora)</a></li>
                 }
             }
 
@@ -68,7 +68,7 @@
                     
                     <li id="@item.Id">
                         <img src="/images/jQueryTimelinr_0954/calendar.jpg" width="256" height="256" />
-                        <h1>@item.DataHora</h1>
+                        <h1>@string.Format("{0:dd/MM/yyyy HH:mm}",item.DataHora)</h1>
                         <p>Profissional: @item.Consulta.Profissional.Nome</p>
                         <p>@item.Consulta.Descricao</p>
                     </li>

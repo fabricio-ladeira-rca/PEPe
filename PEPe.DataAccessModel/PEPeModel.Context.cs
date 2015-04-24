@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Agendamento.DataAccessModel
+namespace PEPe.DataAccessModel
 {
     using System;
     using System.Data.Entity;
@@ -25,12 +25,12 @@ namespace Agendamento.DataAccessModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Exame> Exame { get; set; }
-        public DbSet<Consulta> Consulta { get; set; }
-        public DbSet<Medicamento> Medicamento { get; set; }
-        public DbSet<Usuario> Usuario { get; set; }
-        public DbSet<Profissional> Profissional { get; set; }
         public DbSet<Agenda> Agenda { get; set; }
+        public DbSet<Consulta> Consulta { get; set; }
         public DbSet<ConsultaMedicamento> ConsultaMedicamento { get; set; }
+        public DbSet<Exame> Exame { get; set; }
+        public DbSet<Medicamento> Medicamento { get; set; }
+        public DbSet<Profissional> Profissional { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
     }
 }

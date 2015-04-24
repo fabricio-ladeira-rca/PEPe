@@ -7,7 +7,7 @@
     <ProjectGuid>{73EFAF11-C812-4586-8C59-6440B84F4167}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Agendamento.ADO</RootNamespace>
+    <RootNamespace>PEPe.ADO</RootNamespace>
     <AssemblyName>PEPe.ADO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UsuarioADO.cs" />
     <Compile Include="AgendaADO.cs" />
     <Compile Include="LoginADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

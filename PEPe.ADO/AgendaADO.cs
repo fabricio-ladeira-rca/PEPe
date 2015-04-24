@@ -1,4 +1,5 @@
 ﻿using PEPe.DataAccessModel;
+using PEPe.DataAccessModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -12,18 +13,19 @@ namespace PEPe.ADO
 {
     public class AgendaADO
     {
-      
 
-        //public AG_AGENDA ConsultaAgenda(int numeroAgenda)
-        //{
-        //    AG_AGENDA agenda = null;
-        //    using (var db = new AgendamentoEntities())
-        //    {
-        //        agenda = db.AG_AGENDA.Where(x => x.NUM_AGENDA.Equals(numeroAgenda)).FirstOrDefault();
-        //    }
-        //    return agenda;
 
-        //}
+        public List<Agenda> Consulta(int usuarioId)
+        {
+            //using (var db = new PEPeEntities())
+            //{
+            var db = new PEPeEntities();
+                var result = db.Agenda.AsQueryable().Where(x => x.Usuario.Id == usuarioId).ToList<Agenda>();
+
+                return result;
+            //}
+
+        }
 
 
         ///// <summary>
@@ -77,28 +79,23 @@ namespace PEPe.ADO
 
 
         ///// <summary>
-        ///// Grava Agenda no banco
+        ///// Grava 
         ///// </summary>
-        ///// <param name="agenda"></param>
-        //public void Salvar(AG_AGENDA agenda)
+        ///// <param name="usuario"></param>
+        //public void Salvar(Usuario usuario)
         //{
-        //    using (var db = new AgendamentoEntities())
+        //    using (var db = new PEPeEntities())
         //    {
 
-        //        if (agenda.NUM_AGENDA == 0)
-        //        {
-        //            //Adiciona agenda
-        //            ObjectParameter id = new ObjectParameter("numero", typeof(int));
-        //            int retorno = db.AG_PROXNUM(id);
-
-        //            agenda.NUM_AGENDA = Convert.ToInt32(id.Value);
-        //            db.AG_AGENDA.Add(agenda);
+        //        if (usuario.Id == 0)
+        //        {                   
+        //            db.Usuario.Add(usuario);
         //        }
         //        else
         //        {
         //            //Edita Agenda
-        //            AG_AGENDA upd = db.AG_AGENDA.Find(agenda.NUM_AGENDA);
-        //            db.Entry(upd).CurrentValues.SetValues(agenda);                    
+        //            Usuario upd = db.Usuario.Find(usuario.Id);
+        //            db.Entry(upd).CurrentValues.SetValues(usuario);
         //        }
         //        db.SaveChanges();
         //    }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\fabricio\ownCloud\SENAC\Desenvolvimento de Projetos 1-semestre-2015\Trabalho\fontes\PEPe.DataAccessModel\PEPeModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\fabricio\ownCloud\SENAC\Desenvolvimento de Projetos 1-semestre-2015\Trabalho\fontes-controle\source\PEPe.DataAccessModel\PEPeModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

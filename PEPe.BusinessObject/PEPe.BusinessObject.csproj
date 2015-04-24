@@ -7,7 +7,7 @@
     <ProjectGuid>{070E5438-74E0-481A-8AC1-F28902181D71}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Agendamento.BusinessObject</RootNamespace>
+    <RootNamespace>PEPe.BusinessObject</RootNamespace>
     <AssemblyName>PEPe.BusinessObject</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,6 +46,7 @@
     <Compile Include="AgendaBO.cs" />
     <Compile Include="LoginBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PEPe.ADO\PEPe.ADO.csproj">

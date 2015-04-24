@@ -20,6 +20,8 @@ namespace PEPe
                         "~/Scripts/vendor/jquery.flot/jquery.flot.js",
                         "~/Scripts/vendor/jquery.flot/jquery.flot.time.js",
                         "~/Scripts/vendor/jquery.flot/jquery.flot.tooltip.js",
+                        "~/Scripts/vendor/jquery.dataTables.min.js",
+                        "~/Scripts/vendor/jquery.validate.min.js",
                         "~/Scripts/jquery.mockjax.js",
                         "~/Scripts/jquery.autocomplete.js"
                         ));
@@ -92,6 +94,12 @@ namespace PEPe
                     "~/css/vendor/messenger/messenger.css",
                     "~/css/vendor/messenger/messenger-theme-flat.css"
                     ));
+
+
+            //Script para tela de editar e adicionar usuário
+            bundles.Add(new ScriptBundle("~/Areas/Usuario").Include(
+                   "~/Scripts/Areas/Usuario.js"
+                   ));
 
 
             bundles.Add(new StyleBundle("~/time-line.css").Include("~/Content/css/style.-time-line.css"));

@@ -1,0 +1,79 @@
+﻿@using PEPe.DataAccessModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="menubar">
+    <div class="sidebar-toggler visible-xs">
+        <i class="ion-navicon"></i>
+    </div>
+
+    <div class="page-title">
+        Usuários
+    </div>
+    <form id="new" method="post" action="~/Logado/Usuario/UsuarioDetalhe/">
+        <div style="text-align:right;"><input type="submit" name="btnAdicionar" id="btnAdicionar" value="Adicionar Novo" class="btn btn-default" /></div>
+    </form>
+</div>
+
+<div class="content-wrapper">
+    <table id="datatable-dashboard">
+        <thead>
+            <tr>
+                <th tabindex="2" rowspan="1" colspan="1" style="width:50px;">
+                    Id
+                </th>
+                <th tabindex="2" rowspan="1" colspan="1">
+                    Nome
+                </th>
+                <th tabindex="0" rowspan="1" colspan="1" style="width:50px;">
+                </th>
+                <th tabindex="1" rowspan="1" colspan="1" style="width:50px;">
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable-dashboard').dataTable({
+            "bServerSide": true,
+            "sPaginationType": "full_numbers",
+            "sAjaxSource": "../Usuario/ConsultaUsuarios",
+            "bProcessing": true,
+            "aoColumns": [
+                { "sName": "Id", "bSortable": false },
+                { "sName": "Nome" ,"bSortable": false}
+                ,
+                {
+                    "sName": "Excluir",
+                    "bSearchable": false,
+                    "bSortable": false,
+                    "fnRender": function (oObj) {
+                        return '<a href=\"../../Logado/Usuario/UsuarioExcluir/' +
+                        oObj.aData[0] + '\">Excluir</a>';
+                    }
+                }
+                ,
+                {
+                    "sName": "Editar",
+                    "bSearchable": false,
+                    "bSortable": false,
+                    "fnRender": function (oObj) {
+                        return '<a href=\"../../Logado/Usuario/UsuarioDetalhe/' +
+                        oObj.aData[0] + '\">Editar</a>';
+                    }
+                }
+            ]
+        });
+    });
+
+    
+
+</script>

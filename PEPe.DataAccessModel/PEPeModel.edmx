@@ -4,136 +4,412 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PEPeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="PEPeModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="PEPeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PEPeEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="Exame" EntityType="PEPeModel.Exame" />
-          <EntitySet Name="Consulta" EntityType="PEPeModel.Consulta" />
-          <EntitySet Name="Medicamento" EntityType="PEPeModel.Medicamento" />
-          <EntitySet Name="Usuario" EntityType="PEPeModel.Usuario" />
-          <EntitySet Name="Profissional" EntityType="PEPeModel.Profissional" />
-          <EntitySet Name="Agenda" EntityType="PEPeModel.Agenda" />
-          <AssociationSet Name="UsuarioAgenda" Association="PEPeModel.UsuarioAgenda">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Agenda" EntitySet="Agenda" />
-          </AssociationSet>
-          <AssociationSet Name="ExameAgenda" Association="PEPeModel.ExameAgenda">
-            <End Role="Exame" EntitySet="Exame" />
-            <End Role="Agenda" EntitySet="Agenda" />
-          </AssociationSet>
-          <AssociationSet Name="ConsultaAgenda" Association="PEPeModel.ConsultaAgenda">
-            <End Role="Consulta" EntitySet="Consulta" />
-            <End Role="Agenda" EntitySet="Agenda" />
-          </AssociationSet>
-          <AssociationSet Name="ProfissionalConsulta" Association="PEPeModel.ProfissionalConsulta">
-            <End Role="Profissional" EntitySet="Profissional" />
-            <End Role="Consulta" EntitySet="Consulta" />
-          </AssociationSet>
-          <EntitySet Name="ConsultaMedicamento" EntityType="PEPeModel.ConsultaMedicamento" />
-          <AssociationSet Name="MedicamentoConsultaMedicamento" Association="PEPeModel.MedicamentoConsultaMedicamento">
-            <End Role="Medicamento" EntitySet="Medicamento" />
-            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
-          </AssociationSet>
-          <AssociationSet Name="ConsultaConsultaMedicamento" Association="PEPeModel.ConsultaConsultaMedicamento">
-            <End Role="Consulta" EntitySet="Consulta" />
-            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="PEPeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataHora" Type="datetime" Nullable="false" />
+          <Property Name="Usuario_Id" Type="int" Nullable="false" />
+          <Property Name="Exame_Id" Type="int" Nullable="false" />
+          <Property Name="Consulta_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Profissional_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsultaMedicamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Medicamento_Id" Type="int" Nullable="false" />
+          <Property Name="Consulta_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Exame">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profissional">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_ConsultaAgenda">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Consulta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConsultaConsultaMedicamento">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="ConsultaMedicamento" Type="Self.ConsultaMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultaMedicamento">
+              <PropertyRef Name="Consulta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExameAgenda">
+          <End Role="Exame" Type="Self.Exame" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exame">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Exame_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicamentoConsultaMedicamento">
+          <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="1" />
+          <End Role="ConsultaMedicamento" Type="Self.ConsultaMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultaMedicamento">
+              <PropertyRef Name="Medicamento_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfissionalConsulta">
+          <End Role="Profissional" Type="Self.Profissional" Multiplicity="1" />
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profissional">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consulta">
+              <PropertyRef Name="Profissional_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsuarioAgenda">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Usuario_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PEPeModelStoreContainer">
+          <EntitySet Name="Agenda" EntityType="Self.Agenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsultaMedicamento" EntityType="Self.ConsultaMedicamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exame" EntityType="Self.Exame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicamento" EntityType="Self.Medicamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profissional" EntityType="Self.Profissional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ConsultaAgenda" Association="Self.FK_ConsultaAgenda">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultaConsultaMedicamento" Association="Self.FK_ConsultaConsultaMedicamento">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExameAgenda" Association="Self.FK_ExameAgenda">
+            <End Role="Exame" EntitySet="Exame" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicamentoConsultaMedicamento" Association="Self.FK_MedicamentoConsultaMedicamento">
+            <End Role="Medicamento" EntitySet="Medicamento" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfissionalConsulta" Association="Self.FK_ProfissionalConsulta">
+            <End Role="Profissional" EntitySet="Profissional" />
+            <End Role="Consulta" EntitySet="Consulta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioAgenda" Association="Self.FK_UsuarioAgenda">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PEPeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descricao" Type="String" Nullable="false" />
-          <NavigationProperty Name="Agenda" Relationship="PEPeModel.ExameAgenda" FromRole="Exame" ToRole="Agenda" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuario_Id" Type="Int32" Nullable="false" />
+          <Property Name="Exame_Id" Type="Int32" Nullable="false" />
+          <Property Name="Consulta_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="Self.FK_ConsultaAgenda" FromRole="Agenda" ToRole="Consulta" />
+          <NavigationProperty Name="Exame" Relationship="Self.FK_ExameAgenda" FromRole="Agenda" ToRole="Exame" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_UsuarioAgenda" FromRole="Agenda" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Consulta">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descricao" Type="String" Nullable="false" />
-          <NavigationProperty Name="Agenda" Relationship="PEPeModel.ConsultaAgenda" FromRole="Consulta" ToRole="Agenda" />
-          <NavigationProperty Name="Profissional" Relationship="PEPeModel.ProfissionalConsulta" FromRole="Consulta" ToRole="Profissional" />
-          <NavigationProperty Name="ConsultaMedicamento" Relationship="PEPeModel.ConsultaConsultaMedicamento" FromRole="Consulta" ToRole="ConsultaMedicamento" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Profissional_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="Self.FK_ConsultaAgenda" FromRole="Consulta" ToRole="Agenda" />
+          <NavigationProperty Name="ConsultaMedicamento" Relationship="Self.FK_ConsultaConsultaMedicamento" FromRole="Consulta" ToRole="ConsultaMedicamento" />
+          <NavigationProperty Name="Profissional" Relationship="Self.FK_ProfissionalConsulta" FromRole="Consulta" ToRole="Profissional" />
+        </EntityType>
+        <EntityType Name="ConsultaMedicamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Medicamento_Id" Type="Int32" Nullable="false" />
+          <Property Name="Consulta_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="Self.FK_ConsultaConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Consulta" />
+          <NavigationProperty Name="Medicamento" Relationship="Self.FK_MedicamentoConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Medicamento" />
+        </EntityType>
+        <EntityType Name="Exame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="Self.FK_ExameAgenda" FromRole="Exame" ToRole="Agenda" />
         </EntityType>
         <EntityType Name="Medicamento">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descricao" Type="String" Nullable="false" />
-          <NavigationProperty Name="ConsultaMedicamento" Relationship="PEPeModel.MedicamentoConsultaMedicamento" FromRole="Medicamento" ToRole="ConsultaMedicamento" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" />
-          <NavigationProperty Name="Agenda" Relationship="PEPeModel.UsuarioAgenda" FromRole="Usuario" ToRole="Agenda" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ConsultaMedicamento" Relationship="Self.FK_MedicamentoConsultaMedicamento" FromRole="Medicamento" ToRole="ConsultaMedicamento" />
         </EntityType>
         <EntityType Name="Profissional">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" />
-          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ProfissionalConsulta" FromRole="Profissional" ToRole="Consulta" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="Self.FK_ProfissionalConsulta" FromRole="Profissional" ToRole="Consulta" />
         </EntityType>
-        <EntityType Name="Agenda">
+        <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Usuario" Relationship="PEPeModel.UsuarioAgenda" FromRole="Agenda" ToRole="Usuario" />
-          <Property Name="DataHora" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Exame" Relationship="PEPeModel.ExameAgenda" FromRole="Agenda" ToRole="Exame" />
-          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ConsultaAgenda" FromRole="Agenda" ToRole="Consulta" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Agenda" Relationship="Self.FK_UsuarioAgenda" FromRole="Usuario" ToRole="Agenda" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="UsuarioAgenda">
-          <End Type="PEPeModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        <Association Name="FK_ConsultaAgenda">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Consulta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="ExameAgenda">
-          <End Type="PEPeModel.Exame" Role="Exame" Multiplicity="1" />
-          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        <Association Name="FK_ExameAgenda">
+          <End Role="Exame" Type="Self.Exame" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exame">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Exame_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="ConsultaAgenda">
-          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="1" />
-          <End Type="PEPeModel.Agenda" Role="Agenda" Multiplicity="*" />
+        <Association Name="FK_UsuarioAgenda">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Agenda" Type="Self.Agenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agenda">
+              <PropertyRef Name="Usuario_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="ProfissionalConsulta">
-          <End Type="PEPeModel.Profissional" Role="Profissional" Multiplicity="1" />
-          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="*" />
+        <Association Name="FK_ConsultaConsultaMedicamento">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="ConsultaMedicamento" Type="Self.ConsultaMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultaMedicamento">
+              <PropertyRef Name="Consulta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityType Name="ConsultaMedicamento">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Medicamento" Relationship="PEPeModel.MedicamentoConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Medicamento" />
-          <NavigationProperty Name="Consulta" Relationship="PEPeModel.ConsultaConsultaMedicamento" FromRole="ConsultaMedicamento" ToRole="Consulta" />
-        </EntityType>
-        <Association Name="MedicamentoConsultaMedicamento">
-          <End Type="PEPeModel.Medicamento" Role="Medicamento" Multiplicity="1" />
-          <End Type="PEPeModel.ConsultaMedicamento" Role="ConsultaMedicamento" Multiplicity="*" />
+        <Association Name="FK_ProfissionalConsulta">
+          <End Role="Profissional" Type="Self.Profissional" Multiplicity="1" />
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profissional">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Consulta">
+              <PropertyRef Name="Profissional_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="ConsultaConsultaMedicamento">
-          <End Type="PEPeModel.Consulta" Role="Consulta" Multiplicity="1" />
-          <End Type="PEPeModel.ConsultaMedicamento" Role="ConsultaMedicamento" Multiplicity="*" />
+        <Association Name="FK_MedicamentoConsultaMedicamento">
+          <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="1" />
+          <End Role="ConsultaMedicamento" Type="Self.ConsultaMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsultaMedicamento">
+              <PropertyRef Name="Medicamento_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="PEPeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agenda" EntityType="Self.Agenda" />
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" />
+          <EntitySet Name="ConsultaMedicamento" EntityType="Self.ConsultaMedicamento" />
+          <EntitySet Name="Exame" EntityType="Self.Exame" />
+          <EntitySet Name="Medicamento" EntityType="Self.Medicamento" />
+          <EntitySet Name="Profissional" EntityType="Self.Profissional" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_ConsultaAgenda" Association="Self.FK_ConsultaAgenda">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExameAgenda" Association="Self.FK_ExameAgenda">
+            <End Role="Exame" EntitySet="Exame" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsuarioAgenda" Association="Self.FK_UsuarioAgenda">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Agenda" EntitySet="Agenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConsultaConsultaMedicamento" Association="Self.FK_ConsultaConsultaMedicamento">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfissionalConsulta" Association="Self.FK_ProfissionalConsulta">
+            <End Role="Profissional" EntitySet="Profissional" />
+            <End Role="Consulta" EntitySet="Consulta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicamentoConsultaMedicamento" Association="Self.FK_MedicamentoConsultaMedicamento">
+            <End Role="Medicamento" EntitySet="Medicamento" />
+            <End Role="ConsultaMedicamento" EntitySet="ConsultaMedicamento" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PEPeModelStoreContainer" CdmEntityContainer="PEPeEntities" />
+        <EntityContainerMapping StorageEntityContainer="PEPeModelStoreContainer" CdmEntityContainer="PEPeEntities">
+          <EntitySetMapping Name="Agenda">
+            <EntityTypeMapping TypeName="PEPeModel.Agenda">
+              <MappingFragment StoreEntitySet="Agenda">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
+                <ScalarProperty Name="Exame_Id" ColumnName="Exame_Id" />
+                <ScalarProperty Name="Consulta_Id" ColumnName="Consulta_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consulta">
+            <EntityTypeMapping TypeName="PEPeModel.Consulta">
+              <MappingFragment StoreEntitySet="Consulta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Profissional_Id" ColumnName="Profissional_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsultaMedicamento">
+            <EntityTypeMapping TypeName="PEPeModel.ConsultaMedicamento">
+              <MappingFragment StoreEntitySet="ConsultaMedicamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Medicamento_Id" ColumnName="Medicamento_Id" />
+                <ScalarProperty Name="Consulta_Id" ColumnName="Consulta_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exame">
+            <EntityTypeMapping TypeName="PEPeModel.Exame">
+              <MappingFragment StoreEntitySet="Exame">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicamento">
+            <EntityTypeMapping TypeName="PEPeModel.Medicamento">
+              <MappingFragment StoreEntitySet="Medicamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profissional">
+            <EntityTypeMapping TypeName="PEPeModel.Profissional">
+              <MappingFragment StoreEntitySet="Profissional">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PEPeModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

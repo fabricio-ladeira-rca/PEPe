@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Agendamento.DataAccessModel
+namespace PEPe.DataAccessModel
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,7 @@ namespace Agendamento.DataAccessModel
     
         public int Id { get; set; }
         public string Nome { get; set; }
+        public string Email { get; set; }
     
         public virtual ICollection<Agenda> Agenda { get; set; }
     }

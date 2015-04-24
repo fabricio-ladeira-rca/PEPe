@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Agendamento.DataAccessModel
+namespace PEPe.DataAccessModel
 {
     using System;
     using System.Collections.Generic;

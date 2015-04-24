@@ -126,6 +126,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Logado\Controllers\AutenticationControllercs.cs" />
     <Compile Include="Areas\Logado\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Logado\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Logado\LogadoAreaRegistration.cs" />
     <Compile Include="Areas\Logado\Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -232,6 +233,8 @@
     <Content Include="Content\css\partials\_layout.scss" />
     <Content Include="Content\css\theme.scss" />
     <Content Include="Content\images\.DS_Store" />
+    <Content Include="Areas\Logado\Views\Usuario\Index.cshtml" />
+    <Content Include="Areas\Logado\Views\Usuario\UsuarioDetalhe.cshtml" />
     <None Include="Content\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.js" />
@@ -878,6 +881,7 @@
     <Content Include="Areas\Logado\Views\Home\Index.cshtml" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.map" />
     <Content Include="Content\Scripts\Web.config" />
+    <Content Include="Scripts\Areas\Usuario.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.config" />
     <Content Include="Scripts\bootstrap.js" />

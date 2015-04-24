@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="80c4bd8af4b54d33ba63187bc3207e9b" Name="Diagram1" >
-        <EntityTypeShape EntityType="PEPeModel.Exame" Width="1.5" PointX="3.125" PointY="3.25" />
-        <EntityTypeShape EntityType="PEPeModel.Consulta" Width="1.5" PointX="7" PointY="0.5" />
-        <EntityTypeShape EntityType="PEPeModel.Medicamento" Width="1.5" PointX="11.5" PointY="0.75" />
-        <EntityTypeShape EntityType="PEPeModel.Usuario" Width="1.5" PointX="8.625" PointY="2.875" />
-        <EntityTypeShape EntityType="PEPeModel.Profissional" Width="1.5" PointX="4.375" PointY="0.5" />
-        <EntityTypeShape EntityType="PEPeModel.Agenda" Width="1.5" PointX="6" PointY="2.875" />
-        <AssociationConnector Association="PEPeModel.UsuarioAgenda" />
-        <AssociationConnector Association="PEPeModel.ExameAgenda" />
-        <AssociationConnector Association="PEPeModel.ConsultaAgenda" />
-        <AssociationConnector Association="PEPeModel.ProfissionalConsulta" />
-        <EntityTypeShape EntityType="PEPeModel.ConsultaMedicamento" Width="2" PointX="9.125" PointY="0.5" />
-        <AssociationConnector Association="PEPeModel.MedicamentoConsultaMedicamento" />
-        <AssociationConnector Association="PEPeModel.ConsultaConsultaMedicamento" />
+      <Diagram DiagramId="077298f0c8fd4c448c52e8b50989d729" Name="Diagram1">
+        <EntityTypeShape EntityType="PEPeModel.Agenda" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.Consulta" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.ConsultaMedicamento" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.Exame" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.Medicamento" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.Profissional" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PEPeModel.Usuario" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="PEPeModel.FK_ConsultaAgenda" ManuallyRouted="false" />
+        <AssociationConnector Association="PEPeModel.FK_ExameAgenda" ManuallyRouted="false" />
+        <AssociationConnector Association="PEPeModel.FK_UsuarioAgenda" ManuallyRouted="false" />
+        <AssociationConnector Association="PEPeModel.FK_ConsultaConsultaMedicamento" ManuallyRouted="false" />
+        <AssociationConnector Association="PEPeModel.FK_ProfissionalConsulta" ManuallyRouted="false" />
+        <AssociationConnector Association="PEPeModel.FK_MedicamentoConsultaMedicamento" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

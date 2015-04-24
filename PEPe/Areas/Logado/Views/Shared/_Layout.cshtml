@@ -54,6 +54,7 @@ else
 
     <!-- javascript -->
     @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/thema")*@
     @Scripts.Render("~/bundles/bootstrap")
 
     <!--[if lt IE 9]>
@@ -98,32 +99,32 @@ else
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    @*<li>
-                        <a href="~/Logado/Agendamento/AgendamentoIncluir" @ViewBag.ClassNovoAgendamento>
+                    <li>
+                        <a href="~/Logado/Usuario/Index" @ViewBag.ClassNovoAgendamento>
                             <i class="ion-android-earth"></i>
-                            <span>Novo Agendamento</span>
+                            <span>Usuarios</span>
                         </a>
                     </li>
+                    @*
+                        <li>
+                            <a href="~/Logado/Painel/Painel" @ViewBag.ClassPainel>
+                                <i class="ion-android-earth"></i>
+                                <span>Painel Agendamento</span>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="~/Logado/Painel/Painel" @ViewBag.ClassPainel>
-                            <i class="ion-android-earth"></i>
-                            <span>Painel Agendamento</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="~/Logado/Veiculos/ConsultaVeiculos" @ViewBag.ClassCadastroVeiculos>
-                            <i class="ion-android-earth"></i>
-                            <span>Veículos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="~/Logado/Motorista/ConsultaMotoristas" @ViewBag.ClassMotorista>
-                            <i class="ion-android-earth"></i>
-                            <span>Motoristas</span>
-                        </a>
-                    </li>*@
+                        <li>
+                            <a href="~/Logado/Veiculos/ConsultaVeiculos" @ViewBag.ClassCadastroVeiculos>
+                                <i class="ion-android-earth"></i>
+                                <span>Veículos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Logado/Motorista/ConsultaMotoristas" @ViewBag.ClassMotorista>
+                                <i class="ion-android-earth"></i>
+                                <span>Motoristas</span>
+                            </a>
+                        </li>*@
                 </ul>
             </div>
 
@@ -166,19 +167,19 @@ else
 
 
         @*<script type="text/javascript">
-            $(function () {
-                $('#datatable-example').dataTable({
-                    "sPaginationType": "full_numbers",
-                    "processing": true,
-                    "iDisplayLength": 20,
-                    "aLengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
+                $(function () {
+                    $('#datatable-example').dataTable({
+                        "sPaginationType": "full_numbers",
+                        "processing": true,
+                        "iDisplayLength": 20,
+                        "aLengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
+                    });
                 });
-            });
 
 
 
 
-        </script>*@
+            </script>*@
     </div>
 </body>
 </html>
